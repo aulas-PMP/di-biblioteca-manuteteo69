@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.MainController">
+    
+    <!-- Barra de menú superior -->
+    <top>
+        <MenuBar>
+            <Menu text="Archivo">
+                <MenuItem text="Abrir" onAction="#onAbrirMenuItemClicked"/>
+                <MenuItem text="Salir" onAction="#onSalirMenuItemClicked"/>
+            </Menu>
+            <Menu text="Biblioteca">
+                <MenuItem text="Actualizar"/>
+            </Menu>
+            <Menu text="Ver">
+                <MenuItem text="Pantalla Completa"/>
+            </Menu>
+            <Menu text="Acerca">
+                <MenuItem text="Información"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    
+    <!-- Área central -->
+    <center>
+        <SplitPane orientation="HORIZONTAL">
+            <!-- Panel izquierdo (Editor de video) -->
+            <VBox spacing="10" style="-fx-padding: 10px;">
+                <Label text="Editor de Video" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <Button text="Cambiar Tamaño"/>
+                <Button text="Cambiar Velocidad"/>
+            </VBox>
+            
+            <!-- Panel central (Reproductor) -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Título del Archivo" alignment="CENTER" style="-fx-font-size: 18px;"/>
+                <StackPane style="-fx-background-color: black; -fx-padding: 10px;">
+                    <!-- Aquí se mostraría el video -->
+                    <Label text="Reproductor Multimedia" style="-fx-text-fill: white;"/>
+                </StackPane>
+                <HBox alignment="CENTER" spacing="15">
+                    <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
+                    <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
+                    <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
+                </HBox>
+            </VBox>
+            
+            <!-- Panel derecho (Biblioteca) -->
+            <VBox spacing="10" style="-fx-padding: 10px;">
+                <Label text="Biblioteca" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <ListView fx:id="fileListView"/>
+            </VBox>
+        </SplitPane>
+    </center>
+</BorderPane>
