@@ -1,0 +1,58 @@
+/* General para etiquetas */
+Label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-text-fill: white; /* Texto blanco para mejor visibilidad en fondos oscuros */
+}
+
+/* Estilo de los botones */
+Button {
+    -fx-background-color: #00513c; /* Verde oscuro */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+/* Divider del SplitPane */
+.split-pane-divider {
+    -fx-background-color: black;
+}
+
+/* Barra de menú */
+MenuBar {
+    -fx-background-color: #b0b0b0; /* Plateado */
+    -fx-text-fill: white;
+}
+
+/* Panel izquierdo (Editor de Video) */
+VBox {
+    -fx-background-color: black; /* Fondo negro */
+    -fx-padding: 10px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+/* Panel central (Reproductor) */
+StackPane {
+    -fx-background-color: black; /* Fondo negro */
+}
+
+/* Panel derecho (Biblioteca) */
+ListView {
+    -fx-background-color: black; /* Fondo negro */
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+/* Slider de volumen y progreso */
+Slider {
+    -fx-control-inner-background: black;
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+}

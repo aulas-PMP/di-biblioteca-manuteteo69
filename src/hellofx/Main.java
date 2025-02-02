@@ -14,6 +14,10 @@ public class Main extends Application {
 
         primaryStage.setTitle("Biblioteca Multimedia");
         primaryStage.setScene(new Scene(root, 1024, 768));
+
+        // Configuración para maximizar la ventana al iniciar
+        primaryStage.setMaximized(true);
+
         primaryStage.show();
     }
 

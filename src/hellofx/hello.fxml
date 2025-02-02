@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.MainController" stylesheets="@style.css">
     
     <!-- Barra de menú superior -->
     <top>
@@ -26,7 +26,7 @@
     
     <!-- Área central -->
     <center>
-        <SplitPane orientation="HORIZONTAL">
+        <SplitPane orientation="HORIZONTAL" dividerPositions="0.25, 0.75">
             <!-- Panel izquierdo (Editor de video) -->
             <VBox spacing="10" style="-fx-padding: 10px;">
                 <Label text="Editor de Video" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
@@ -41,11 +41,16 @@
                     <!-- Aquí se mostraría el video -->
                     <Label text="Reproductor Multimedia" style="-fx-text-fill: white;"/>
                 </StackPane>
-                <HBox alignment="CENTER" spacing="15">
-                    <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
-                    <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
-                    <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
-                </HBox>
+                <VBox spacing="5" style="-fx-padding: 10px;">
+                    <Slider fx:id="progressSlider" min="0" max="100" value="0" style="-fx-pref-width: 500px;"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
+                        <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
+                        <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
+                        <Label text="Volumen:"/> <!--Añadido del regulador de-->
+                        <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" style="-fx-pref-width: 150px;"/>
+                    </HBox>
+                </VBox>
             </VBox>
             
             <!-- Panel derecho (Biblioteca) -->
