@@ -56,3 +56,9 @@ Slider {
     -fx-border-radius: 5px;
     -fx-border-width: 1px;
 }
+#mediaView {
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
+

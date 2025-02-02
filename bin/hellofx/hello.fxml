@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.media.MediaView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.MainController" stylesheets="@style.css">
-    
+
     <!-- Barra de menú superior -->
     <top>
         <MenuBar>
@@ -23,7 +23,7 @@
             </Menu>
         </MenuBar>
     </top>
-    
+
     <!-- Área central -->
     <center>
         <SplitPane orientation="HORIZONTAL" dividerPositions="0.25, 0.75">
@@ -33,26 +33,25 @@
                 <Button text="Cambiar Tamaño"/>
                 <Button text="Cambiar Velocidad"/>
             </VBox>
-            
+
             <!-- Panel central (Reproductor) -->
             <VBox alignment="CENTER" spacing="10">
-                <Label text="Título del Archivo" alignment="CENTER" style="-fx-font-size: 18px;"/>
-                <StackPane style="-fx-background-color: black; -fx-padding: 10px;">
-                    <!-- Aquí se mostraría el video -->
-                    <Label text="Reproductor Multimedia" style="-fx-text-fill: white;"/>
+                <StackPane style="-fx-background-color: black; -fx-padding: 10px; -fx-pref-width: 640px; -fx-pref-height: 360px;">
+                    <MediaView fx:id="mediaView" preserveRatio="true"/>
                 </StackPane>
+
                 <VBox spacing="5" style="-fx-padding: 10px;">
                     <Slider fx:id="progressSlider" min="0" max="100" value="0" style="-fx-pref-width: 500px;"/>
                     <HBox spacing="10" alignment="CENTER">
                         <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
                         <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
                         <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
-                        <Label text="Volumen:"/> <!--Añadido del regulador de-->
+                        <Label text="Volumen:"/>
                         <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" style="-fx-pref-width: 150px;"/>
                     </HBox>
                 </VBox>
             </VBox>
-            
+
             <!-- Panel derecho (Biblioteca) -->
             <VBox spacing="10" style="-fx-padding: 10px;">
                 <Label text="Biblioteca" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
