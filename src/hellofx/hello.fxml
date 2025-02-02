@@ -46,7 +46,7 @@
                         <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
                         <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
                         <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
-                        <Label text="Volumen:"/>
+                        <Label text="🔊"/>
                         <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" style="-fx-pref-width: 150px;"/>
                     </HBox>
                 </VBox>
