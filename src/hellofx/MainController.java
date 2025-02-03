@@ -13,7 +13,7 @@ import java.io.File;
 public class MainController {
 
     @FXML
-    private Button playButton, pauseButton, stopButton, fullscreenButton;
+    private Button playButton, pauseButton, stopButton, fullscreenButton, speedButton;
 
     @FXML
     private Slider volumeSlider, progressSlider;
@@ -30,6 +30,7 @@ public class MainController {
     private MediaPlayer mediaPlayer;
 
     private boolean isFullscreen = false; // estado de pantalla completa
+    private boolean isDoubleSpeed = false; // estado de velocidad (x2 o normal)
 
     private double initialWidth = 640; // tamaño inicial
     private double initialHeight = 360; // tamaño inicial
@@ -60,6 +61,9 @@ public class MainController {
         // inicializar el tamaño del contenedor
         mediaContainer.setPrefWidth(initialWidth);
         mediaContainer.setPrefHeight(initialHeight);
+
+        // inicializar texto de los botones de velocidad
+        speedButton.setText("x2");
     }
 
     @FXML
@@ -91,11 +95,11 @@ public class MainController {
             mediaContainer.setPrefHeight(initialHeight);
             mediaView.fitWidthProperty().unbind();
             mediaView.fitHeightProperty().unbind();
-            mediaView.setFitWidth(initialWidth); // establecer el tamaño inicial manualmente
+            mediaView.setFitWidth(initialWidth);
             mediaView.setFitHeight(initialHeight);
-    
+
             isFullscreen = false;
-    
+
             // cambiar texto del botón
             fullscreenButton.setText("⛶");
         } else {
@@ -104,14 +108,39 @@ public class MainController {
             mediaContainer.setPrefHeight(mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80); // margen para la barra
             mediaView.fitWidthProperty().bind(mediaContainer.widthProperty());
             mediaView.fitHeightProperty().bind(mediaContainer.heightProperty());
-    
+
             isFullscreen = true;
-    
+
             // cambiar texto del botón
             fullscreenButton.setText("⤢");
         }
     }
-    
+
+    @FXML
+    private void onSpeedButtonClicked() {
+        toggleSpeed();
+    }
+
+    @FXML
+    private void onLateralSpeedButtonClicked() {
+        toggleSpeed();
+    }
+
+    private void toggleSpeed() {
+        if (mediaPlayer != null) {
+            if (isDoubleSpeed) {
+                // volver a velocidad normal
+                mediaPlayer.setRate(1.0);
+                speedButton.setText("x2");
+                isDoubleSpeed = false;
+            } else {
+                // establecer velocidad x2
+                mediaPlayer.setRate(2.0);
+                speedButton.setText("/2");
+                isDoubleSpeed = true;
+            }
+        }
+    }
 
     @FXML
     private void onAbrirMenuItemClicked() {
@@ -162,35 +191,31 @@ public class MainController {
     private void onSalirMenuItemClicked() {
         System.exit(0);
     }
+
     @FXML
-private void onResizeButtonClicked() {
-    // alternar entre tamaño inicial y pantalla completa
-    if (isFullscreen) {
-        // volver al tamaño inicial
-        mediaContainer.setPrefWidth(initialWidth);
-        mediaContainer.setPrefHeight(initialHeight);
-        mediaView.fitWidthProperty().unbind();
-        mediaView.fitHeightProperty().unbind();
-        
-        // establecer el tamaño inicial explicitamente
-        mediaView.setFitWidth(initialWidth);
-        mediaView.setFitHeight(initialHeight);
+    private void onResizeButtonClicked() {
+        // alternar entre tamaño inicial y pantalla completa
+        if (isFullscreen) {
+            // volver al tamaño inicial
+            mediaContainer.setPrefWidth(initialWidth);
+            mediaContainer.setPrefHeight(initialHeight);
+            mediaView.fitWidthProperty().unbind();
+            mediaView.fitHeightProperty().unbind();
+            mediaView.setFitWidth(initialWidth);
+            mediaView.setFitHeight(initialHeight);
 
-        isFullscreen = false;
+            isFullscreen = false;
+        } else {
+            // expandir al tamaño completo
+            double availableWidth = mediaContainer.getParent().layoutBoundsProperty().get().getWidth();
+            double availableHeight = mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80; // margen para la barra
 
-    } else {
-        // expandir al tamaño completo
-        double availableWidth = mediaContainer.getParent().layoutBoundsProperty().get().getWidth();
-        double availableHeight = mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80; // margen para la barra
-        
-        mediaContainer.setPrefWidth(availableWidth);
-        mediaContainer.setPrefHeight(availableHeight);
-        mediaView.fitWidthProperty().bind(mediaContainer.widthProperty());
-        mediaView.fitHeightProperty().bind(mediaContainer.heightProperty());
+            mediaContainer.setPrefWidth(availableWidth);
+            mediaContainer.setPrefHeight(availableHeight);
+            mediaView.fitWidthProperty().bind(mediaContainer.widthProperty());
+            mediaView.fitHeightProperty().bind(mediaContainer.heightProperty());
 
-        isFullscreen = true;
+            isFullscreen = true;
+        }
     }
-}
-
-    
 }
