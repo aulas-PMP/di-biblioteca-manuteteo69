@@ -162,16 +162,35 @@ public class MainController {
     private void onSalirMenuItemClicked() {
         System.exit(0);
     }
-
     @FXML
-    private void onResizeButtonClicked() {
-        // alterna el tamaño del contenedor entre grande y pequeño (en verda no hace nada pero si lo borro me da problems ayiyiyiyiyiyiyti)
-        if (mediaContainer.getPrefWidth() == 640) {
-            mediaContainer.setPrefWidth(1280);
-            mediaContainer.setPrefHeight(720);
-        } else {
-            mediaContainer.setPrefWidth(initialWidth);
-            mediaContainer.setPrefHeight(initialHeight);
-        }
+private void onResizeButtonClicked() {
+    // alternar entre tamaño inicial y pantalla completa
+    if (isFullscreen) {
+        // volver al tamaño inicial
+        mediaContainer.setPrefWidth(initialWidth);
+        mediaContainer.setPrefHeight(initialHeight);
+        mediaView.fitWidthProperty().unbind();
+        mediaView.fitHeightProperty().unbind();
+        
+        // establecer el tamaño inicial explicitamente
+        mediaView.setFitWidth(initialWidth);
+        mediaView.setFitHeight(initialHeight);
+
+        isFullscreen = false;
+
+    } else {
+        // expandir al tamaño completo
+        double availableWidth = mediaContainer.getParent().layoutBoundsProperty().get().getWidth();
+        double availableHeight = mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80; // margen para la barra
+        
+        mediaContainer.setPrefWidth(availableWidth);
+        mediaContainer.setPrefHeight(availableHeight);
+        mediaView.fitWidthProperty().bind(mediaContainer.widthProperty());
+        mediaView.fitHeightProperty().bind(mediaContainer.heightProperty());
+
+        isFullscreen = true;
     }
+}
+
+    
 }
