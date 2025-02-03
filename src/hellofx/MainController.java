@@ -2,6 +2,7 @@ package hellofx;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -12,7 +13,7 @@ import java.io.File;
 public class MainController {
 
     @FXML
-    private Button playButton, pauseButton, stopButton;
+    private Button playButton, pauseButton, stopButton, fullscreenButton;
 
     @FXML
     private Slider volumeSlider, progressSlider;
@@ -23,7 +24,15 @@ public class MainController {
     @FXML
     private MediaView mediaView;
 
+    @FXML
+    private StackPane mediaContainer; // contenedor del video
+
     private MediaPlayer mediaPlayer;
+
+    private boolean isFullscreen = false; // estado de pantalla completa
+
+    private double initialWidth = 640; // tamaño inicial
+    private double initialHeight = 360; // tamaño inicial
 
     @FXML
     public void initialize() {
@@ -41,12 +50,16 @@ public class MainController {
             }
         });
 
-        // manejar selección en la biblioteca
+        // manejar seleccion en la biblioteca
         fileListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 playVideo(new File(newSelection));
             }
         });
+
+        // inicializar el tamaño del contenedor
+        mediaContainer.setPrefWidth(initialWidth);
+        mediaContainer.setPrefHeight(initialHeight);
     }
 
     @FXML
@@ -69,6 +82,36 @@ public class MainController {
             mediaPlayer.stop();
         }
     }
+
+    @FXML
+    private void onFullscreenButtonClicked() {
+        if (isFullscreen) {
+            // volver al tamaño inicial
+            mediaContainer.setPrefWidth(initialWidth);
+            mediaContainer.setPrefHeight(initialHeight);
+            mediaView.fitWidthProperty().unbind();
+            mediaView.fitHeightProperty().unbind();
+            mediaView.setFitWidth(initialWidth); // establecer el tamaño inicial manualmente
+            mediaView.setFitHeight(initialHeight);
+    
+            isFullscreen = false;
+    
+            // cambiar texto del botón
+            fullscreenButton.setText("⛶");
+        } else {
+            // expandir al tamaño completo
+            mediaContainer.setPrefWidth(mediaContainer.getParent().layoutBoundsProperty().get().getWidth());
+            mediaContainer.setPrefHeight(mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80); // margen para la barra
+            mediaView.fitWidthProperty().bind(mediaContainer.widthProperty());
+            mediaView.fitHeightProperty().bind(mediaContainer.heightProperty());
+    
+            isFullscreen = true;
+    
+            // cambiar texto del botón
+            fullscreenButton.setText("⤢");
+        }
+    }
+    
 
     @FXML
     private void onAbrirMenuItemClicked() {
@@ -111,12 +154,24 @@ public class MainController {
 
             mediaPlayer.play();
         } catch (Exception e) {
-            System.err.println("error al reproducir el archivo: " + e.getMessage());
+            System.err.println("Error al reproducir el archivo: " + e.getMessage());
         }
     }
 
     @FXML
     private void onSalirMenuItemClicked() {
         System.exit(0);
+    }
+
+    @FXML
+    private void onResizeButtonClicked() {
+        // alterna el tamaño del contenedor entre grande y pequeño (en verda no hace nada pero si lo borro me da problems ayiyiyiyiyiyiyti)
+        if (mediaContainer.getPrefWidth() == 640) {
+            mediaContainer.setPrefWidth(1280);
+            mediaContainer.setPrefHeight(720);
+        } else {
+            mediaContainer.setPrefWidth(initialWidth);
+            mediaContainer.setPrefHeight(initialHeight);
+        }
     }
 }
