@@ -33,7 +33,7 @@
 
     <!-- Barra de controles inferior -->
     <bottom>
-        <VBox spacing="5" style="-fx-padding: 10px; -fx-background-color: #000;">
+        <VBox fx:id ="container" spacing="5" style="-fx-padding: 10px; -fx-background-color: #000;">
             <Slider fx:id="progressSlider" min="0" max="100" value="0" style="-fx-pref-width: 500px;"/>
             <HBox spacing="10" alignment="CENTER">
                 <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
@@ -43,27 +43,26 @@
                 <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" style="-fx-pref-width: 150px;"/>
                 <Button text="⛶" fx:id="fullscreenButton" onAction="#onFullscreenButtonClicked"/>
                 <Button text="x2" fx:id="speedButton" onAction="#onSpeedButtonClicked" style="-fx-pref-width: 50px;"/>
-
             </HBox>
         </VBox>
     </bottom>
 
-    <!-- Panel lateral -->
+    <!-- Panel lateral izquierdo -->
     <left>
-        <VBox fx:id="leftPanel" spacing="10" style="-fx-padding: 10px;">
+        <VBox fx:id="leftPanel" spacing="10" style="-fx-padding: 10px; -fx-background-color:rgb(0, 0, 0);">
+            <Button text="▲" onAction="#onLeftPanelToggleClicked" style="-fx-pref-width: 50px;"/>
             <Label text="Editor de Video" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             <Button text="Cambiar Tamaño" onAction="#onResizeButtonClicked"/>
             <Button text="Cambiar Velocidad" onAction="#onSpeedButtonClicked"/>
-
         </VBox>
     </left>
 
-    <!-- Panel derecho -->
+    <!-- Panel lateral derecho -->
     <right>
-        <VBox fx:id="rightPanel" spacing="10" style="-fx-padding: 10px;">
+        <VBox fx:id="rightPanel" spacing="10" style="-fx-padding: 10px; -fx-background-color:rgb(0, 0, 0);">
+            <Button text="▲" onAction="#onRightPanelToggleClicked" style="-fx-pref-width: 50px;"/>
             <Label text="Biblioteca" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             <ListView fx:id="fileListView"/>
         </VBox>
     </right>
 </BorderPane>
-        

@@ -3,6 +3,7 @@ package hellofx;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -27,10 +28,15 @@ public class MainController {
     @FXML
     private StackPane mediaContainer; // contenedor del video
 
+    @FXML
+    private VBox leftPanel, rightPanel; // paneles laterales
+
     private MediaPlayer mediaPlayer;
 
     private boolean isFullscreen = false; // estado de pantalla completa
     private boolean isDoubleSpeed = false; // estado de velocidad (x2 o normal)
+    private boolean isLeftPanelCollapsed = false; // estado del panel izquierdo
+    private boolean isRightPanelCollapsed = false; // estado del panel derecho
 
     private double initialWidth = 640; // tamaño inicial
     private double initialHeight = 360; // tamaño inicial
@@ -122,10 +128,6 @@ public class MainController {
     }
 
     @FXML
-    private void onLateralSpeedButtonClicked() {
-        toggleSpeed();
-    }
-
     private void toggleSpeed() {
         if (mediaPlayer != null) {
             if (isDoubleSpeed) {
@@ -193,10 +195,33 @@ public class MainController {
     }
 
     @FXML
+    private void onLeftPanelToggleClicked() {
+        if (isLeftPanelCollapsed) {
+            leftPanel.setPrefWidth(200);
+            leftPanel.getChildren().get(0).setRotate(0); // rotar el botón hacia arriba
+        } else {
+            leftPanel.setPrefWidth(50);
+            leftPanel.getChildren().get(0).setRotate(180); // rotar el botón hacia abajo
+        }
+        isLeftPanelCollapsed = !isLeftPanelCollapsed;
+    }
+
+    @FXML
+    private void onRightPanelToggleClicked() {
+        if (isRightPanelCollapsed) {
+            rightPanel.setPrefWidth(200);
+            rightPanel.getChildren().get(0).setRotate(0); // rotar el botón hacia arriba
+        } else {
+            rightPanel.setPrefWidth(50);
+            rightPanel.getChildren().get(0).setRotate(180); // rotar el botón hacia abajo
+        }
+        isRightPanelCollapsed = !isRightPanelCollapsed;
+    }
+
+    @FXML
     private void onResizeButtonClicked() {
         // alternar entre tamaño inicial y pantalla completa
         if (isFullscreen) {
-            // volver al tamaño inicial
             mediaContainer.setPrefWidth(initialWidth);
             mediaContainer.setPrefHeight(initialHeight);
             mediaView.fitWidthProperty().unbind();
@@ -206,9 +231,8 @@ public class MainController {
 
             isFullscreen = false;
         } else {
-            // expandir al tamaño completo
             double availableWidth = mediaContainer.getParent().layoutBoundsProperty().get().getWidth();
-            double availableHeight = mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80; // margen para la barra
+            double availableHeight = mediaContainer.getParent().layoutBoundsProperty().get().getHeight() - 80;
 
             mediaContainer.setPrefWidth(availableWidth);
             mediaContainer.setPrefHeight(availableHeight);
