@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.MediaView?>
 
@@ -19,16 +20,18 @@
                 <MenuItem text="Pantalla Completa" onAction="#onFullscreenButtonClicked"/>
             </Menu>
             <Menu text="Acerca">
-                <MenuItem text="Información"/>
+                <MenuItem text="Reproductor multimedia de Manut"/>
             </Menu>
         </MenuBar>
     </top>
 
     <!-- Área central -->
     <center>
-        <StackPane fx:id="mediaContainer" style="-fx-background-color: black;">
-            <MediaView fx:id="mediaView" preserveRatio="true"/>
-        </StackPane>
+    <StackPane fx:id="mediaContainer" style="-fx-background-color: black;">
+    <ImageView fx:id="placeholderImage" fitWidth="640" fitHeight="360" preserveRatio="true"
+               visible="false" style="-fx-alignment: center;" />
+    <MediaView fx:id="mediaView" preserveRatio="true"/>
+    </StackPane>
     </center>
 
     <!-- Barra de controles inferior -->
