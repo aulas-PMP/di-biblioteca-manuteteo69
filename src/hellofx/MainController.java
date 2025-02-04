@@ -158,37 +158,62 @@ public class MainController {
         }
     }
 
+    @FXML
+    private Label currentTimeLabel; // Muestra el tiempo actual
+    @FXML
+    private Label totalTimeLabel; // Muestra la duración total
+    
     private void playVideo(File file) {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.dispose();
         }
-
+    
         try {
             Media media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
-
-            // configurar volumen
+    
+            // configurar el volumen
             mediaPlayer.setVolume(volumeSlider.getValue());
-
-            // actualizar progreso del slider
+    
+            // actualizar progreso y tiempo
             mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
                 if (!progressSlider.isValueChanging()) {
                     progressSlider.setValue(newTime.toSeconds());
                 }
+                updateCurrentTimeLabel(newTime.toSeconds());
             });
-
+    
             mediaPlayer.setOnReady(() -> {
-                progressSlider.setMax(mediaPlayer.getTotalDuration().toSeconds());
+                double totalSeconds = mediaPlayer.getTotalDuration().toSeconds();
+                progressSlider.setMax(totalSeconds);
+                updateTotalTimeLabel(totalSeconds);
             });
-
+    
             mediaPlayer.play();
         } catch (Exception e) {
             System.err.println("Error al reproducir el archivo: " + e.getMessage());
         }
     }
-
+    
+    // tiempo corriendo
+    private void updateCurrentTimeLabel(double currentSeconds) {
+        currentTimeLabel.setText(formatTime(currentSeconds));
+    }
+    
+    // duracion total del archivo
+    private void updateTotalTimeLabel(double totalSeconds) {
+        totalTimeLabel.setText(formatTime(totalSeconds));
+    }
+    
+    // duracion en minutos y segundos
+    private String formatTime(double seconds) {
+        int minutes = (int) seconds / 60;
+        int secs = (int) seconds % 60;
+        return String.format("%d:%02d", minutes, secs);
+    }
+    
     @FXML
     private void onSalirMenuItemClicked() {
         System.exit(0);

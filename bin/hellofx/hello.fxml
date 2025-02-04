@@ -34,8 +34,10 @@
     <!-- Barra de controles inferior -->
     <bottom>
         <VBox fx:id ="container" spacing="5" style="-fx-padding: 10px; -fx-background-color: #000;">
+            <Label fx:id="currentTimeLabel" text="0:00" style="-fx-text-fill: white; -fx-translate-y: 60; -fx-translate-x: 100;"/>
             <Slider fx:id="progressSlider" min="0" max="100" value="0" style="-fx-pref-width: 500px;"/>
-            <HBox spacing="10" alignment="CENTER">
+            <Label fx:id="totalTimeLabel" text="0:00" style="-fx-text-fill: white; -fx-translate-y: 10; -fx-translate-x: 1400;"/>
+            <HBox fx:id ="contenedor" spacing="10" alignment="CENTER">
                 <Button text="▶" fx:id="playButton" onAction="#onPlayButtonClicked"/>
                 <Button text="⏸" fx:id="pauseButton" onAction="#onPauseButtonClicked"/>
                 <Button text="⏹" fx:id="stopButton" onAction="#onStopButtonClicked"/>
