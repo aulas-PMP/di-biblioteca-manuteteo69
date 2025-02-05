@@ -1,14 +1,20 @@
 package hellofx;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 
@@ -155,11 +161,12 @@ public class MainController {
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Archivos de video", "*.mp4", "*.mkv", "*.avi", "*.mp3"));
 
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            fileListView.getItems().add(file.getAbsolutePath());
-            playVideo(file);
-        }
+                File file = fileChooser.showOpenDialog(null);
+                if (file != null) {
+                    fileListView.getItems().add(file.getAbsolutePath());
+                    showNonModalDialog(file.getName() + " añadido a la biblioteca");
+                    playVideo(file);
+                }
     }
 
     @FXML
@@ -355,6 +362,50 @@ private void onAboutMenuItemClicked() {
     // showdialogo
     aboutDialog.showAndWait();
 }
+
+private void showNonModalDialog(String message) {
+    // nuevo dialogo
+    Stage dialogStage = new Stage();
+    dialogStage.initStyle(StageStyle.TRANSPARENT); 
+    dialogStage.setAlwaysOnTop(true); // para q se vea encima del contenido
+
+    // Ccreacion del mensaje
+    Label messageLabel = new Label(message);
+    messageLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white; -fx-padding: 10px;");
+
+    // contenedor del mensaje
+    StackPane dialogPane = new StackPane(messageLabel);
+    dialogPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8); -fx-border-radius: 10px; -fx-background-radius: 10px;");
+    dialogPane.setPrefWidth(300); // ancho siempre igual, aumenta el alto
+    dialogPane.setMaxWidth(300);
+    dialogPane.setMinHeight(50); // lo mas peque q puede ser el dialoog
+    dialogPane.setMaxHeight(Region.USE_PREF_SIZE);
+
+    // adaptacion del tamaño segun lo largo que sea el título
+    messageLabel.setWrapText(true);
+    dialogPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+    // aparece
+    Scene dialogScene = new Scene(dialogPane);
+    dialogScene.setFill(null); // semitransparente para que no estorbe mucho
+    dialogStage.setScene(dialogScene);
+
+    // aparece en el centro
+    dialogStage.setWidth(300);
+    dialogStage.setHeight(100);
+    dialogStage.setX((mediaContainer.getScene().getWindow().getWidth() - dialogStage.getWidth()) / 2);
+    dialogStage.setY((mediaContainer.getScene().getWindow().getHeight() - dialogStage.getHeight()) / 2);
+    dialogStage.show();
+
+    // timeline para que despues de dos segundos desaparezca
+    Timeline timeline = new Timeline(
+        new KeyFrame(javafx.util.Duration.seconds(2), event -> dialogStage.close())
+    );
+    timeline.setCycleCount(1);
+    timeline.play();
+}
+
+
 
 
 }

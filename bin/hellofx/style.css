@@ -63,16 +63,23 @@ MenuItem:hover {
 
 ListView {
     -fx-background-color: #121212; /* Fondo oscuro */
+    -fx-control-inner-background: #121212; /* Fondo interno */
+    -fx-text-fill: white;
     -fx-border-color: #333333;
+    -fx-border-radius: 10px;
     -fx-border-width: 1px;
-    -fx-border-radius: 10px; /* Bordes redondeados */
-    -fx-text-fill: #ffffff;
 }
 
-ListView .list-cell:filled:selected {
-    -fx-background-color: #00513c;; /* Verde característico */
-    -fx-text-fill: #ffffff;
+ListView .list-cell {
+    -fx-background-color: #121212; /* Fondo oscuro */
+    -fx-text-fill: white;
 }
+
+ListView .list-cell:selected {
+    -fx-background-color: #00513c; /* Verde oscuro */
+    -fx-text-fill: white;
+}
+
 
 /* Panel central */
 #mediaContainer {
@@ -145,3 +152,5 @@ Slider .track {
 Slider .track:hover {
     -fx-background-color: #00513c;;
 }
+
+
