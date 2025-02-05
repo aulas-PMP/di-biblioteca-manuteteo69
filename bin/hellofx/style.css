@@ -1,84 +1,147 @@
-/* General para etiquetas */
-Label {
-    -fx-font-family: "Arial";
-    -fx-font-size: 16px;
-    -fx-text-fill: white; /* Texto blanco para mejor visibilidad en fondos oscuros */
+/* General */
+* {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
 }
 
-/* Estilo de los botones */
-Button {
-    -fx-background-color: #00513c; /* Verde oscuro */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-border-color: white;
-    -fx-border-width: 1px;
-}
-
-/* Divider del SplitPane */
-.split-pane-divider {
-    -fx-background-color: black;
+/* Fondo general */
+.root {
+    -fx-background-color: #121212;
+    -fx-text-fill: #ffffff;
 }
 
 /* Barra de menú */
 MenuBar {
-    -fx-background-color: #b0b0b0; /* Plateado */
-    -fx-text-fill: white;
+    -fx-background-color: #5f5f5f; /* Fondo oscuro */
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5px;
+    -fx-border-color: #333333;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-radius: 10px; /* Bordes redondeados */
 }
 
-/* Panel izquierdo (Editor de Video) */
-VBox {
-    -fx-background-color: black; /* Fondo negro */
+MenuItem {
+    -fx-text-fill: #ffffff;
+}
+
+MenuItem:hover {
+    -fx-background-color: #333333;
+    color: #00513c;;
+}
+
+/* Panel izquierdo */
+#leftPanel {
+    -fx-background-color: #1e1e1e; /* Fondo oscuro */
+    -fx-border-color: #333333;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-radius: 15px; /* Bordes redondeados */
     -fx-padding: 10px;
-    -fx-border-color: white;
-    -fx-border-width: 1px;
 }
 
-/* Panel central (Reproductor) */
-StackPane {
-    -fx-background-color: black; /* Fondo negro */
+#leftPanel Button {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10px 15px;
 }
 
-/* Panel derecho (Biblioteca) */
+#leftPanel Button:hover {
+    -fx-background-color: #00513c;;
+    -fx-cursor: hand;
+}
+
+/* Panel derecho */
+#rightPanel {
+    -fx-background-color: #1e1e1e; /* Fondo oscuro */
+    -fx-border-color: #333333;
+    -fx-border-width: 0 0 0 1px;
+    -fx-border-radius: 15px; /* Bordes redondeados */
+    -fx-padding: 10px;
+}
+
 ListView {
-    -fx-background-color: black; /* Fondo negro */
-    -fx-text-fill: white;
-    -fx-border-color: white;
+    -fx-background-color: #121212; /* Fondo oscuro */
+    -fx-border-color: #333333;
     -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-text-fill: #ffffff;
 }
 
-/* Slider de volumen y progreso */
-Slider {
-    -fx-control-inner-background: black;
-    -fx-background-color: black;
-    -fx-border-color: #00513c;
-    -fx-border-radius: 5px;
-    -fx-border-width: 1px;
+ListView .list-cell:filled:selected {
+    -fx-background-color: #00513c;; /* Verde característico */
+    -fx-text-fill: #ffffff;
 }
+
+/* Panel central */
+#mediaContainer {
+    -fx-background-color: #121212; /* Fondo oscuro */
+}
+
 #mediaView {
-    -fx-background-color: black;
-    -fx-border-color: rgb(0, 0, 0);
+    -fx-background-color: #000000;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Imagen de placeholder */
+ImageView {
+    -fx-border-color: #00513c;;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+/* Controles inferiores */
+#container {
+    -fx-background-color: #1e1e1e; /* Fondo oscuro */
+    -fx-border-color: #333333;
+    -fx-border-width: 2px 0 0 0;
+    -fx-border-radius: 15px; /* Bordes redondeados */
+    -fx-padding: 10px;
+}
+
+#contenedor {
+    -fx-spacing: 10;
+}
+
+#currentPlayingLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+/* Botones */
+Button {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 10px 15px;
+}
+
+Button:hover {
+    -fx-background-color: #00513c;;
+    -fx-cursor: hand;
+}
+
+/* Sliders */
+Slider {
+    -fx-padding: 0 10px;
+}
+
+Slider .thumb {
+    -fx-background-color: #00513c;
+    -fx-border-color: #121212;
     -fx-border-width: 2px;
 }
 
-/* Paneles laterales */
-#leftPanel, #rightPanel {
-    -fx-background-color: #000000; 
-    background-color: #000000;
-    -fx-text-fill: #2b2b2b;
-    -fx-border-color: #2b2b2b; 
-    border-color: #2b2b2b;
-    -fx-padding: 10px;
+Slider .track {
+    -fx-background-color: #333333;
 }
 
-#container {
-    -fx-border-color: #2b2b2b; 
-    border-color: #2b2b2b;
-    -fx-border-width: 1px; 
-    -fx-background-color: black; 
-}
-
-#contenedor{
-    border-color: #00513c;
+Slider .track:hover {
+    -fx-background-color: #00513c;;
 }

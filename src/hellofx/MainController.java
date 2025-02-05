@@ -166,6 +166,9 @@ public class MainController {
     private Label currentTimeLabel; // Muestra el tiempo actual
     @FXML
     private Label totalTimeLabel; // Muestra la duración total
+    @FXML
+    private Label currentPlayingLabel; // Mostrar el título del archivo en reproducción
+
     
     private void playVideo(File file) {
         if (mediaPlayer != null) {
@@ -180,6 +183,8 @@ public class MainController {
     
             // Configurar el volumen
             mediaPlayer.setVolume(volumeSlider.getValue());
+            //Conseguir el titulo de lo que esta sonando
+            currentPlayingLabel.setText("- " + file.getName());
     
             // Configurar visibilidad del video y la imagen de fondo
             mediaPlayer.setOnReady(() -> {
@@ -284,6 +289,74 @@ public class MainController {
             isFullscreen = true;
         }
     }
+
+    @FXML
+private void onVaciarMenuItemClicked() {
+    //borra todo lo q hay en la biblioteca
+    fileListView.getItems().clear();
+    
+    //elimina también el titulo del archivo que se esta reproduciendo
+    currentPlayingLabel.setText("Archivo en reproducción: -");
+
+    // para lo que se está reproducioendo
+    if (mediaPlayer != null) {
+        mediaPlayer.stop();
+        mediaPlayer.dispose();
+        mediaPlayer = null;
+    }
+
+    /*tarda un poco en irse la imagen del ultimio elemento que estaba sonando pero se va */
+
+}
+
+
+@FXML
+private void onAboutMenuItemClicked() {
+    // dialogo
+    Dialog<Void> aboutDialog = new Dialog<>();
+    aboutDialog.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+    aboutDialog.setTitle("Acerca de");
+
+    // movidas de dentro del dialogo
+    VBox content = new VBox();
+    content.setSpacing(10);
+    content.setStyle("-fx-alignment: center; -fx-padding: 20px;");
+
+    // texto gaucho
+    Label title = new Label("REPRODUCTOR GAUCHO");
+    title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
+    Label subtitle = new Label("done by manuteteo69");
+    subtitle.setStyle("-fx-font-size: 14px;");
+
+    // imagen durisima
+    ImageView logo = new ImageView(getClass().getResource("faubert.png").toExternalForm()); 
+    logo.setFitWidth(200); 
+    logo.setFitHeight(200);
+    logo.setPreserveRatio(true);
+
+    // boton de cerrar
+    Button closeButton = new Button("");
+    closeButton.setStyle("-fx-background-color: transparent; -fx-font-size: 14px; -fx-font-weight: bold;");
+    closeButton.setOnAction(event -> aboutDialog.close());
+
+    // contenedor
+    StackPane closeButtonContainer = new StackPane(closeButton);
+    closeButtonContainer.setStyle("-fx-alignment: top-right;");
+    closeButtonContainer.setPrefHeight(20);
+
+    // elementos dentro del dialogo
+    content.getChildren().addAll(closeButtonContainer, logo, title, subtitle);
+
+    // contenido del dialgoao
+    aboutDialog.getDialogPane().setContent(content);
+    aboutDialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+
+    // showdialogo
+    aboutDialog.showAndWait();
+}
+
+
 }
 
 

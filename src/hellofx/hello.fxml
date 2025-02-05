@@ -14,13 +14,14 @@
                 <MenuItem text="Salir" onAction="#onSalirMenuItemClicked"/>
             </Menu>
             <Menu text="Biblioteca">
-                <MenuItem text="Actualizar"/>
+               <MenuItem text="Vaciar" onAction="#onVaciarMenuItemClicked"/>
+
             </Menu>
             <Menu text="Ver">
                 <MenuItem text="Pantalla Completa" onAction="#onFullscreenButtonClicked"/>
             </Menu>
             <Menu text="Acerca">
-                <MenuItem text="Reproductor multimedia de Manut"/>
+                 <MenuItem text="Reproductor multimedia de Manut" onAction="#onAboutMenuItemClicked"/>
             </Menu>
         </MenuBar>
     </top>
@@ -37,6 +38,7 @@
     <!-- Barra de controles inferior -->
     <bottom>
         <VBox fx:id ="container" spacing="5" style="-fx-padding: 10px; -fx-background-color: #000;">
+          <Label fx:id="currentPlayingLabel" text="-" style="-fx-text-fill: white;"/>
             <Label fx:id="currentTimeLabel" text="0:00" style="-fx-text-fill: white; -fx-translate-y: 60; -fx-translate-x: 100;"/>
             <Slider fx:id="progressSlider" min="0" max="100" value="0" style="-fx-pref-width: 500px;"/>
             <Label fx:id="totalTimeLabel" text="0:00" style="-fx-text-fill: white; -fx-translate-y: 10; -fx-translate-x: 1400;"/>
@@ -68,6 +70,7 @@
             <Button text="▲" onAction="#onRightPanelToggleClicked" style="-fx-pref-width: 50px;"/>
             <Label text="Biblioteca" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             <ListView fx:id="fileListView"/>
+           
         </VBox>
     </right>
 </BorderPane>
